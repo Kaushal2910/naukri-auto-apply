@@ -1,18 +1,13 @@
 name: Naukri Auto Apply
 
 on:
-  # Run every hour (adjust schedule as needed to avoid rate limits)
   schedule:
-    - cron: '0 */6 * * *'  # Every 6 hours (safer for avoiding account bans)
+    - cron: '*/150 * * * *'  # Every 150 minutes
   
-  # Allow manual triggering from GitHub UI
   workflow_dispatch:
-    inputs:
-      dry_run:
-        description: 'Test mode - no actual applications'
-        required: false
-        default: 'false'
-        type: boolean
+
+env:
+  PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD: 1
 
 jobs:
   apply:
@@ -22,6 +17,16 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v4
 
+    - name: Checkout resume branch
+      uses: actions/checkout@v4
+      with:
+        ref: resume-upload
+        path: resume-files
+
+    - name: Copy resume to working directory
+      run: |
+        cp resume-files/Kaushal_CV.pdf ./Kaushal_CV.pdf
+
     - name: Set up Python 3.12
       uses: actions/setup-python@v5
       with:
@@ -30,7 +35,7 @@ jobs:
     - name: Install system dependencies
       run: |
         sudo apt-get update
-        sudo apt-get install -y libnss3 libnspr4 libdbus-3 libatk1.0-0 libatk-bridge2.0-0 libcups2 libgbm1 libgtk-3-0 libgbm1 libxcomposite1 libxdamage1 libxfixes3 libxrandr2 libasound2
+        sudo apt-get install -y libnss3 libnspr4 libdbus-3 libatk1.0-0 libatk-bridge2.0-0 libcups2 libgbm1 libgtk-3-0 libxcomposite1 libxdamage1 libxfixes3 libxrandr2 libasound2
 
     - name: Install Playwright dependencies
       run: |
@@ -42,13 +47,9 @@ jobs:
       run: |
         pip install -r requirements.txt
 
-    - name: Download resume
-      # This step allows uploading resume via GitHub Actions artifact
-      # Or you could store it securely in GitHub Secrets as base64
+    - name: Create session file
       run: |
-        echo "Creating placeholder resume file..."
-        touch Kaushal_CV.pdf
-        echo "Resume file ready"
+        echo "${{ secrets.SESSION_NAUKRI_JSON }}" > session_naukri.json
 
     - name: Run Auto Apply
       env:
@@ -56,8 +57,6 @@ jobs:
         GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
       run: |
         python naukri_apply.py
-      # Note: Requires session_naukri.json uploaded as GitHub Secret
-      # See README below for instructions on generating this file
 
     - name: Upload logs
       if: always()
