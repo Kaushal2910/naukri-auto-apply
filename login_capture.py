@@ -63,13 +63,9 @@ def main():
             current_url = page.url
             print(f"Current URL: {current_url}")
             
-            # Handle potential redirect or different field names
-            try:
-                page.fill('input[name="email"]', email)
-            except Exception:
-                # Try alternative selectors
-                page.fill('input[type="email"]', email)
-            page.fill('input[name="password"]', password)
+            # Use aria-label selectors matching Naukri's actual form
+            page.fill('input[aria-label="Email ID / Username"]', email)
+            page.fill('input[aria-label="Password"]', password)
             page.click('button[type="submit"]')
 
             # Wait for login to complete — either redirect to homepage or a CAPTCHA block
