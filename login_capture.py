@@ -47,12 +47,8 @@ def main():
         page.goto(url)
 
         if use_auto_login:
-            email = os.environ.get("NAUKRI_EMAIL")
-            password = os.environ.get("NAUKARI_PASSWORD")
-            if not email or not password:
-                # Fallback to NAUKARI_ prefix (common typo)
-                email = os.environ.get("NAUKARI_EMAIL") or email
-                password = os.environ.get("NAUKARI_PASSWORD") or password
+            email = os.environ.get("NAUKRI_EMAIL") or os.environ.get("NAUKARI_EMAIL")
+            password = os.environ.get("NAUKRI_PASSWORD") or os.environ.get("NAUKARI_PASSWORD")
             if not email or not password:
                 raise RuntimeError(
                     "Auto-login requested but NAUKRI_EMAIL / NAUKRI_PASSWORD "
