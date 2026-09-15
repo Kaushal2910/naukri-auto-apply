@@ -127,16 +127,8 @@ browser_mode: headless
 resume_file_name: Kaushal_CV.pdf
 predefined_answers:
   Are you willing to work in night shifts?: 'Yes'
-  Are you comfortable with work from office?: 'Yes'
-  Are you comfortable with work from home?: 'Yes'
   Are you willing to relocate?: 'Yes'
-  Are you looking for a change?: 'Yes'
   Are you currently employed?: 'Yes'
-  Notice period?: 0 days
-  Current CTC?: 3.2 LPA
-  Expected CTC?: 3.7 LPA
-  Total experience?: 1.5 years
-  Current location?: Pune
   Preferred location?: Bengaluru, Hyderabad, Chennai, Pune
   Willing to travel?: 'Yes'
   Can you join immediately?: 'Yes'
@@ -156,10 +148,7 @@ predefined_answers:
   experience with kubernetes: Basic understanding
   experience in CI/CD: 'Yes'
   ci/cd tools you have used: Jenkins, GitLab CI, GitHub Actions
-  containers used: Docker, Kubernetes
   programming languages: Python, Java, JavaScript, TypeScript, React, Node.js
-  languages you program in: Python, Java, JavaScript, TypeScript
-  coding languages you know: Python, Java, JavaScript, TypeScript
   technical skills: AWS, Docker, Kubernetes, Python, Java, JavaScript, TypeScript,
     React, Node.js
   skills: AWS, Docker, Kubernetes, Python, Java, JavaScript, TypeScript, React, Node.js
@@ -174,11 +163,7 @@ predefined_answers:
   containerization tools: Docker, Kubernetes
   infrastructure as code tools: CloudFormation, Terraform basics
   willing to work in night shifts: 'Yes'
-  comfortable with work from office: 'Yes'
-  comfortable with work from home: 'Yes'
   available to join: Immediately
-  notice period: 0 days
-  can start immediately: 'Yes'
   willing to relocate: 'Yes'
   preferred locations: Bengaluru, Hyderabad, Pune, Chennai, Mumbai, Delhi, NCR
   willing to travel: Yes, occasionally
@@ -187,46 +172,20 @@ predefined_answers:
   passport details: Available upon request
   visa status: Indian Citizen
   currently employed: 'Yes'
-  present employer: ThynkTech India
-  current company: ThynkTech India
-  previous companies: Young Web Solutions, Codezone IT Solutions
   employment history: ThynkTech India (Current), Young Web Solutions, Codezone IT
     Solutions
-  current ctc: 3.2 LPA
-  expected ctc: 4 LPA
-  current salary: 3.2 LPA
-  expected salary: 4 LPA
-  salary expectations: Negotiable based on role
-  current compensation: 3.2 LPA fixed
-  expected compensation: 4 LPA
-  annual salary: 3.2 LPA current, expecting 4 LPA
-  total experience: 1.5 years
-  relevant experience: 1.5 years in DevOps and Full-Stack development
-  years of experience: 1.5 years
-  experience level: Entry to Mid level
-  career progression: Started as Cloud Intern, now DevOps Engineer
   primary skills: AWS, Docker, Kubernetes, Python, Java, JavaScript, TypeScript, React,
     Node.js
   secondary skills: Ansible, Terraform basics, PostgreSQL, Redis
-  certifications: Oracle Certified Architect Associate, Oracle Certified Agentic AI
-    Associate
-  highest qualification: B.E in Computer Engineering
-  education: B.E Computer Engineering, Keystone School of Engineering, SPPU
   available for interview: 'Yes'
   interview availability: Anytime during business hours
   preferred interview mode: Video call or In-person
-  any questions for us: 'No'
   are you available: 'Yes'
-  do you have: 'Yes'
-  can you: 'Yes'
-  are you willing: 'Yes'
-  willing to: 'Yes'
   interested in this role: 'Yes'
   want to proceed: 'Yes'
   ready for next steps: 'Yes'
   available for hiring process: 'Yes'
   ready to join: 'Yes'
-  notice period is: 0 days
   can work in us shift: 'No'
   requires sponsorship: No, Indian citizen
   ever been terminated: 'No'
