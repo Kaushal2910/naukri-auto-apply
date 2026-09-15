@@ -63,3 +63,16 @@ class Profile:
             "night_shift": "Yes" if d.get("night_shift_ok") else "No",
             "weekend_work": "Yes" if d.get("weekend_ok") else "No",
         }
+
+    def get_predefined_answer(self, question: str) -> str | None:
+        """Exact-match lookup for predefined answers."""
+        predefined = self.data.get("predefined_answers", {})
+        # Try exact question match
+        if question in predefined:
+            return predefined[question]
+        # Try case-insensitive match
+        lower_q = question.strip()
+        for key, value in predefined.items():
+            if key.lower() == lower_q.lower():
+                return value
+        return None

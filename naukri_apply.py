@@ -73,9 +73,11 @@ def passes_filters(card: dict, profile: Profile, role: str) -> tuple[bool, str]:
     company = (card.get("company") or "").lower()
 
     required_keywords = profile.data.get("role_required_keywords", {}).get(role)
-    if not required_keywords:
+    if not required_keywords and role not in profile.data.get("role_required_keywords", {}):
         generic = {"engineer", "developer", "administrator", "analyst", "senior", "junior", "lead"}
         required_keywords = [w for w in role.lower().split() if w not in generic]
+        if not required_keywords:
+            required_keywords = role.lower().split()  # Fallback: split all words
     if required_keywords and not any(kw.lower() in title for kw in required_keywords):
         return False, f"title doesn't match role keywords ({role})"
 
@@ -507,6 +509,14 @@ def answer_screening_chat(page, profile: Profile, job_context: str, timeout_s: i
         if stored:
             _fill_and_send(page, stored, question)
             print(f"  (used a remembered answer for: {question[:80]})")
+            continue
+
+        # Check predefined answers first
+        predefined = profile.get_predefined_answer(question)
+        if predefined:
+            _fill_and_send(page, predefined, question)
+            learned_answers.save_answer(question, predefined)
+            print(f"  (used predefined answer for: {question[:80]})")
             continue
 
         lower_q = question.lower()
