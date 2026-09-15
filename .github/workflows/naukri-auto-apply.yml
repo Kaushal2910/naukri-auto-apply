@@ -17,15 +17,7 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v4
 
-    - name: Checkout resume branch
-      uses: actions/checkout@v4
-      with:
-        ref: resume-upload
-        path: resume-files
-
-    - name: Copy resume to working directory
-      run: |
-        cp resume-files/Kaushal_CV.pdf ./Kaushal_CV.pdf
+    - name: Resume already present in main branch
 
     - name: Set up Python 3.12
       uses: actions/setup-python@v5
