@@ -11,36 +11,96 @@ Usage:
     python login_capture.py naukri
     python login_capture.py linkedin
 """
+import os
 import sys
 from playwright.sync_api import sync_playwright
+from playwright.sync_api import TimeoutError as PWTimeout
 
 SITES = {
     "naukri": "https://www.naukri.com/nlogin/login",
     "linkedin": "https://www.linkedin.com/login",
 }
 
-
 def main():
-    if len(sys.argv) != 2 or sys.argv[1] not in SITES:
-        print(f"Usage: python login_capture.py [{'|'.join(SITES)}]")
+    # --- Argument parsing ---
+    use_auto_login = "--auto-login" in sys.argv
+    positional = [a for a in sys.argv[1:] if not a.startswith("-")]
+
+    if not positional:
+        print(f"Usage: python login_capture.py [{'|'.join(SITES)}] [--auto-login]")
         sys.exit(1)
 
-    site = sys.argv[1]
+    site = positional[0]
+    if site not in SITES:
+        print(f"Invalid site '{site}'. Choose from: {', '.join(SITES.keys())}")
+        sys.exit(1)
+
     url = SITES[site]
     out_path = f"session_{site}.json"
 
     with sync_playwright() as p:
-        browser = p.chromium.launch(headless=False)
+        # Headless in CI (auto-login mode), visible window otherwise
+        headless = use_auto_login
+        browser = p.chromium.launch(headless=headless, args=[] if not headless else ["--no-sandbox"])
         context = browser.new_context()
         page = context.new_page()
         page.goto(url)
 
-        print(f"\nA browser window is open at {url}")
-        print("Log in by hand: password, 2FA, any CAPTCHA — all of it.")
-        input("Once you're on the logged-in homepage, press Enter here to save the session... ")
+        if use_auto_login:
+            email = os.environ.get("NAUKRI_EMAIL")
+            password = os.environ.get("NAUKARI_PASSWORD")
+            if not email or not password:
+                # Fallback to NAUKARI_ prefix (common typo)
+                email = os.environ.get("NAUKARI_EMAIL") or email
+                password = os.environ.get("NAUKARI_PASSWORD") or password
+            if not email or not password:
+                raise RuntimeError(
+                    "Auto-login requested but NAUKRI_EMAIL / NAUKRI_PASSWORD "
+                    "(or NAUKARI_EMAIL / NAUKARI_PASSWORD) environment variables "
+                    "are not set. Aborting."
+                )
 
-        context.storage_state(path=out_path)
-        print(f"Session saved to {out_path}. Keep this file private — it's equivalent to being logged in.")
+            # ---- Auto-fill login form ----
+            page.fill('input[name="email"]', email)
+            page.fill('input[name="password"]', password)
+            page.click('button[type="submit"]')
+
+            # Wait for login to complete — either redirect to homepage or a CAPTCHA block
+            try:
+                page.wait_for_url("https://www.naukri.com/*", timeout=15000)
+                print("Login successful (redirected).")
+            except PWTimeout:
+                # Redirect didn't happen within timeout — check if we're still on login page
+                current_url = page.url
+                if "nlogin" in current_url:
+                    raise RuntimeError(
+                        "Auto-login timed out — still on login page. "
+                        "Check credentials or solve CAPTCHA manually."
+                    )
+                else:
+                    print(f"Login may have succeeded but URL is unexpected: {current_url}")
+
+            # Extra safety: confirm we are logged in by checking for logout link or profile element
+            try:
+                await_logged_in = await page.goto("https://www.naukri.com/", timeout=10000)
+                if "logout" in (await_logged_in.text() or "").lower() if await_logged_in else False:
+                    print("Confirmed logged in (logout link found).")
+                else:
+                    print("Warning: logout link not found — session may not be fully established.")
+            except Exception:
+                print("Warning: could not navigate to homepage to confirm login.")
+
+            # Save session
+            context.storage_state(path=out_path)
+            print(f"Session saved to {out_path}.")
+
+        else:
+            print(f"\nA browser window is open at {url}")
+            print("Log in by hand: password, 2FA, any CAPTCHA — all of it.")
+            input("Once you're on the logged-in homepage, press Enter here to save the session... ")
+            context.storage_state(path=out_path)
+            print(f"Session saved to {out_path}. Keep this file private — it's equivalent to being logged in.")
+
         browser.close()
 
 
