@@ -36,8 +36,8 @@ jobs:
       env:
         SESSION_NAUKRI_JSON: ${{ secrets.SESSION_NAUKRI_JSON }}
       run: |
-        printf '%s' "$SESSION_NAUKRI_JSON" > session_naukri.json
-        python -m json.tool session_naukri.json > /dev/null
+        echo "$SESSION_NAUKRI_JSON" > session_naukri.json
+        python -c "import json; json.load(open('session_naukri.json'))" || { echo "Invalid JSON"; exit 1; }
         ls -la session_naukri.json
 
     - name: Run Auto Apply
