@@ -1,89 +1,234 @@
-# ==========================================================================
-# YOUR APPLICATION PROFILE
-# Copy this file to profile.yaml (that filename is gitignored, so your real
-# details never get committed) and fill it in with real facts. Every answer
-# the script gives on a form is generated from this file -- nothing here
-# should be something you'd be uncomfortable being asked about in an
-# interview.
-# ==========================================================================
-
 target_roles:
-  - "Data Engineer"
-  - "Backend Developer"
-  # add every role variant you actually want to be found under
-
-# Controls how strictly a job's title must match the role you searched for.
-# Naukri's own search is loose (e.g. "Data Engineer" can surface completely
-# unrelated titles), so this filter re-checks the title itself. A card is
-# kept only if its title contains at least one of these words. If a role
-# isn't listed here, the script falls back to using the role's own words
-# (minus generic terms like "engineer"/"developer").
+- Data Engineer
+- Backend Developer
+- DevOps Engineer
+- Cloud Developer
+- AWS Developer
+- Azure DevOps
+- Python Developer
+- Java Developer
+- Software Developer
+- Full Stack Developer
+- React Developer
+- Systems Engineer
 role_required_keywords:
-  "Data Engineer": ["data engineer"]
-  "Backend Developer": ["backend developer", "backend engineer"]
-
-current_city: "Bengaluru"
-relocate_cities: []          # e.g. ["Hyderabad", "Pune"] -- leave empty if you won't relocate
-work_mode: "onsite_or_hybrid"   # onsite_or_hybrid | remote_only | flexible
-night_shift_ok: false
+  Data Engineer:
+  - data engineer
+  - dataengineer
+  Backend Developer:
+  - backend developer
+  - backend engineer
+  - backenddeveloper
+  Software Developer:
+  - software developer
+  - software engineer
+  - developedeveloper
+  React Developer:
+  - react
+  - reactjs
+  - react developer
+  - reactjs developer
+  Full Stack Developer:
+  - full stack developer
+  - fullstack developer
+  - fullstack
+  Cloud Developer:
+  - cloud developer
+  - cloud engineer
+  - aws developer
+  - azure developer
+  - gcp developer
+  AWS Developer:
+  - aws developer
+  - aws cloud
+  - aws lambda
+  - aws developer
+  DevOps Engineer:
+  - devops
+  - devops engineer
+  - devops engineer
+  - site reliability engineer
+  - sre
+  Python Developer:
+  - python developer
+  - python engineer
+  - python developer
+  Java Developer:
+  - java developer
+  - java engineer
+  - java developer
+  - spring boot
+  Systems Engineer:
+  - systems engineer
+  - systems analyst
+  Azure DevOps:
+  - azure devops
+  - azure devops engineer
+current_city: Pune
+relocate_cities:
+- Hyderabad
+- Bengaluru
+- Chennai
+work_mode: onsite_or_hybrid
+night_shift_ok: true
 weekend_ok: false
+total_experience_years: 1.5
+current_employer: ThynkTech India
+current_title_official: DevOps Engineer
+current_title_functional: Building CI/CD pipelines, containerizing applications with
+  Docker, managing AWS infrastructure, and developing full-stack web solutions.
+notice_period_days: 0
+immediately_available: true
+current_ctc_lpa: 3.2
+expected_ctc_lpa: 3.7
+ctc_disclosure_policy: negotiable
+highest_qualification: B.E Comp
+certifications:
+- Oracle Certified Architect Associate
+- Oracle Certified Agentic AI Associate
+- Salesforce Certified Agentforce Specialist
+- Japanese Language Proficiency Test (JLPT N4)
+skills_primary:
+- AWS
+- Docker
+- Kubernetes
+- Jenkins
+- Linux
+- React.js
+- Node.js
+- Java
+- Python
+skills_adjacent:
+- Ansible
+- Next.js
+- TypeScript
+- PostgreSQL
+work_history_narrative: 'I have 1.5 years of experience spanning DevOps engineering
+  and full-stack web development, most recently working as a DevOps Engineer at ThynkTech
+  India where I built CI/CD pipelines, managed Docker and Kubernetes deployments,
+  and administered AWS cloud infrastructure. Previously, I worked as a Web Development
+  Intern at Young Web Solutions developing responsive client applications and as a
+  Cloud Intern at Codezone IT Solutions handling AWS resource provisioning. I hold
+  a B.E. in Computer Engineering from Keystone School of Engineering, SPPU.[cite:
+  1]
 
-total_experience_years: 0
-current_employer: "Your Company Name"
-current_title_official: "Your Official Title"
-current_title_functional: "What you actually do day to day"
-notice_period_days: 30                         # set to your real, current notice period
-immediately_available: false
-
-current_ctc_lpa: null        # fill in your real number, in Lakhs Per Annum
-expected_ctc_lpa: null
-ctc_disclosure_policy: "negotiable"   # negotiable | real_numbers
-
-highest_qualification: "Your degree, Your college"
-certifications: []           # e.g. ["AWS Certified Developer", "Azure Fundamentals"]
-
-skills_primary:              # things you'd rate yourself strongly on
-  - "Skill 1"
-  - "Skill 2"
-
-skills_adjacent:             # real but lighter exposure -- answer these modestly, never round up
-  - "Skill you've self-studied or have light exposure to"
-
-work_history_narrative: |
-  Write 2-4 sentences in your own words describing your actual work
-  history and what you do. This is what free-text screening answers get
-  built from, so be specific and honest -- the AI won't invent anything
-  beyond what's written here.
-
-company_exclude: []          # e.g. ["Your Current Employer"] -- filter rule, not a fact
-company_include_only: []     # leave empty to not restrict
-
+  '
+company_exclude: []
+company_include_only: []
 seniority_floor_years: 0
 seniority_ceiling_years: 5
-job_freshness_days: 3          # Naukri's "freshness" filter -- only jobs posted in the last N days
-
+job_freshness_days: 3
 salary_floor_lpa: null
-
-stop_after_n_applications: 20
+stop_after_n_applications: 30
 pace_seconds_between_actions: 30
-
-# How long to wait for you to type an answer when the script hits a
-# question it can't answer safely on its own (personal details like DOB,
-# or anything the AI genuinely doesn't know from your profile). If you
-# don't respond in time, that one listing is skipped -- the run continues.
 human_input_timeout_seconds: 120
-
-# How many search-result pages to go through per role before moving to the
-# next role (or stopping, if stop_after_n_applications is reached first).
-max_pages_per_role: 5
-
-# How the browser window behaves while running:
-#   "visible"   -- normal window, you can watch it (best for early runs / debugging)
-#   "minimized" -- a real browser still opens and does everything the same way,
-#                  but starts minimized to the taskbar so it's out of your way
-#   "headless"  -- no window at all, fastest, but a genuinely fake/invisible
-#                  browser is somewhat easier for a site to detect as a bot
-#                  than a real (even minimized) one -- slightly higher risk
-browser_mode: "minimized"
-
-resume_file_name: "your_resume.pdf"   # must match the filename already uploaded to Naukri/LinkedIn, and sit in this same project folder
+max_pages_per_role: 3
+browser_mode: minimized
+resume_file_name: Kaushal_CV.pdf
+predefined_answers:
+  Are you willing to work in night shifts?: 'Yes'
+  Are you comfortable with work from office?: 'Yes'
+  Are you comfortable with work from home?: 'Yes'
+  Are you willing to relocate?: 'Yes'
+  Are you looking for a change?: 'Yes'
+  Are you currently employed?: 'Yes'
+  Notice period?: 0 days
+  Current CTC?: 3.2 LPA
+  Expected CTC?: 3.7 LPA
+  Total experience?: 1.5 years
+  Current location?: Pune
+  Preferred location?: Bengaluru, Hyderabad, Chennai, Pune
+  Willing to travel?: 'Yes'
+  Can you join immediately?: 'Yes'
+  Have you ever been terminated?: 'No'
+  Are you looking for a job change?: 'Yes'
+  Do you have any legal clearance issues?: 'No'
+  Are you willing to work on weekends?: 'Yes'
+  Are you flexible with work hours?: 'Yes'
+  Do you require sponsorship?: No, Indian citizen
+  databases have you worked with: PostgreSQL, MySQL, MongoDB, Redis, Elasticsearch
+  database experience: PostgreSQL, MySQL, MongoDB, Redis
+  database you have worked on: PostgreSQL, MySQL, MongoDB
+  databases you have worked with: PostgreSQL, MySQL, MongoDB, Redis
+  database platforms you have worked on: PostgreSQL, MySQL, MongoDB
+  experience in cloud platforms: Yes, AWS
+  experience with docker: 'Yes'
+  experience with kubernetes: Basic understanding
+  experience in CI/CD: 'Yes'
+  ci/cd tools you have used: Jenkins, GitLab CI, GitHub Actions
+  containers used: Docker, Kubernetes
+  programming languages: Python, Java, JavaScript, TypeScript, React, Node.js
+  languages you program in: Python, Java, JavaScript, TypeScript
+  coding languages you know: Python, Java, JavaScript, TypeScript
+  technical skills: AWS, Docker, Kubernetes, Python, Java, JavaScript, TypeScript,
+    React, Node.js
+  skills: AWS, Docker, Kubernetes, Python, Java, JavaScript, TypeScript, React, Node.js
+  development skills: AWS, Docker, Kubernetes, Python, Java, JavaScript, TypeScript,
+    React, Node.js
+  aws services used: EC2, S3, Lambda, ECS, ECR, CloudFormation, RDS
+  aws experience: 2 years
+  cloud platforms used: AWS, Google Cloud Platform
+  cloud experience: AWS primarily, with some GCP
+  devops tools used: Jenkins, Docker, Kubernetes, GitLab CI, GitHub Actions, Ansible
+  deployment tools: Docker, Kubernetes, Jenkins, GitHub Actions
+  containerization tools: Docker, Kubernetes
+  infrastructure as code tools: CloudFormation, Terraform basics
+  willing to work in night shifts: 'Yes'
+  comfortable with work from office: 'Yes'
+  comfortable with work from home: 'Yes'
+  available to join: Immediately
+  notice period: 0 days
+  can start immediately: 'Yes'
+  willing to relocate: 'Yes'
+  preferred locations: Bengaluru, Hyderabad, Pune, Chennai, Mumbai, Delhi, NCR
+  willing to travel: Yes, occasionally
+  travel willingness: Yes, up to 25%
+  available for relocation: 'Yes'
+  passport details: Available upon request
+  visa status: Indian Citizen
+  currently employed: 'Yes'
+  present employer: ThynkTech India
+  current company: ThynkTech India
+  previous companies: Young Web Solutions, Codezone IT Solutions
+  employment history: ThynkTech India (Current), Young Web Solutions, Codezone IT
+    Solutions
+  current ctc: 3.2 LPA
+  expected ctc: 4 LPA
+  current salary: 3.2 LPA
+  expected salary: 4 LPA
+  salary expectations: Negotiable based on role
+  current compensation: 3.2 LPA fixed
+  expected compensation: 4 LPA
+  annual salary: 3.2 LPA current, expecting 4 LPA
+  total experience: 1.5 years
+  relevant experience: 1.5 years in DevOps and Full-Stack development
+  years of experience: 1.5 years
+  experience level: Entry to Mid level
+  career progression: Started as Cloud Intern, now DevOps Engineer
+  primary skills: AWS, Docker, Kubernetes, Python, Java, JavaScript, TypeScript, React,
+    Node.js
+  secondary skills: Ansible, Terraform basics, PostgreSQL, Redis
+  certifications: Oracle Certified Architect Associate, Oracle Certified Agentic AI
+    Associate
+  highest qualification: B.E in Computer Engineering
+  education: B.E Computer Engineering, Keystone School of Engineering, SPPU
+  available for interview: 'Yes'
+  interview availability: Anytime during business hours
+  preferred interview mode: Video call or In-person
+  any questions for us: 'No'
+  are you available: 'Yes'
+  do you have: 'Yes'
+  can you: 'Yes'
+  are you willing: 'Yes'
+  willing to: 'Yes'
+  interested in this role: 'Yes'
+  want to proceed: 'Yes'
+  ready for next steps: 'Yes'
+  available for hiring process: 'Yes'
+  ready to join: 'Yes'
+  notice period is: 0 days
+  can work in us shift: 'No'
+  requires sponsorship: No, Indian citizen
+  ever been terminated: 'No'
+  legal clearance issues: 'No'
+  background issues: 'No'

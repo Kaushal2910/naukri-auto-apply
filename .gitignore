@@ -1,1 +1,21 @@
-.env 
+# Secrets & Sessions
+.env
+session_naukri.json
+session_linkedin.json
+
+# Local Logs (can grow huge)
+applications_log.csv
+debug_screenshots/
+
+# Python
+venv/
+__pycache__/
+*.pyc
+*.pyo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Note: profile.yaml NOT ignored - contains no sensitive data per design
+# But it's optional to keep private if preferred
