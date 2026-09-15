@@ -53,3 +53,4 @@ jobs:
         path: |
           applications_log.csv
           debug_screenshots/
+          login_page_debug.png

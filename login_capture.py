@@ -56,7 +56,19 @@ def main():
                 )
 
             # ---- Auto-fill login form ----
-            page.fill('input[name="email"]', email)
+            page.screenshot(path="login_page_debug.png")  # Debug: save login page
+            print("Login page screenshot saved as login_page_debug.png")
+            
+            # Check if we're actually on login page
+            current_url = page.url
+            print(f"Current URL: {current_url}")
+            
+            # Handle potential redirect or different field names
+            try:
+                page.fill('input[name="email"]', email)
+            except Exception:
+                # Try alternative selectors
+                page.fill('input[type="email"]', email)
             page.fill('input[name="password"]', password)
             page.click('button[type="submit"]')
 
