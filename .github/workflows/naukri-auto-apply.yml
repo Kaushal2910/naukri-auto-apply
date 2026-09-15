@@ -33,8 +33,12 @@ jobs:
         pip install -r requirements.txt
 
     - name: Create session file
+      env:
+        SESSION_NAUKRI_JSON: ${{ secrets.SESSION_NAUKRI_JSON }}
       run: |
-        echo "${{ secrets.SESSION_NAUKRI_JSON }}" > session_naukri.json
+        printf '%s' "$SESSION_NAUKRI_JSON" > session_naukri.json
+        python -m json.tool session_naukri.json > /dev/null
+        ls -la session_naukri.json
 
     - name: Run Auto Apply
       env:
