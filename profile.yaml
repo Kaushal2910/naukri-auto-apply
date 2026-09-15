@@ -123,7 +123,7 @@ stop_after_n_applications: 30
 pace_seconds_between_actions: 30
 human_input_timeout_seconds: 120
 max_pages_per_role: 3
-browser_mode: minimized
+browser_mode: headless
 resume_file_name: Kaushal_CV.pdf
 predefined_answers:
   Are you willing to work in night shifts?: 'Yes'
