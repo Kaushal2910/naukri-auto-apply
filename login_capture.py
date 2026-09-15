@@ -80,15 +80,16 @@ def main():
                 else:
                     print(f"Login may have succeeded but URL is unexpected: {current_url}")
 
-            # Extra safety: confirm we are logged in by checking for logout link or profile element
+            # Extra safety: confirm we are logged in by navigating to homepage
             try:
-                await_logged_in = await page.goto("https://www.naukri.com/", timeout=10000)
-                if "logout" in (await_logged_in.text() or "").lower() if await_logged_in else False:
+                page.goto("https://www.naukri.com/", timeout=10000)
+                page_content = page.content().lower()
+                if "logout" in page_content:
                     print("Confirmed logged in (logout link found).")
                 else:
                     print("Warning: logout link not found — session may not be fully established.")
-            except Exception:
-                print("Warning: could not navigate to homepage to confirm login.")
+            except Exception as e:
+                print(f"Warning: could not navigate to homepage to confirm login: {e}")
 
             # Save session
             context.storage_state(path=out_path)
