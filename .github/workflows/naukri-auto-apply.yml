@@ -29,9 +29,16 @@ jobs:
 
     - name: Login to Naukri
       env:
-        NAUKRI_EMAIL: ${{ secrets.NAUKRI_EMAIL }}
-        NAUKRI_PASSWORD: ${{ secrets.NAUKRI_PASSWORD }}
+        EMAIL: ${{ secrets.NAUKRI_EMAIL }}
+        PASSWORD: ${{ secrets.NAUKRI_PASSWORD }}
       run: |
+        echo "Email length: ${#EMAIL}"
+        echo "Password length: ${#PASSWORD}"
+        if [ ${#EMAIL} -lt 5 ] || [ ${#PASSWORD} -lt 5 ]; then
+          echo "ERROR: Email or password secret is missing/empty"
+          echo "Please add secrets: NAUKRI_EMAIL and NAUKRI_PASSWORD in repo Settings > Secrets"
+          exit 1
+        fi
         python login_capture.py naukri --auto-login
 
     - name: Run Auto Apply

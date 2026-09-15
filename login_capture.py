@@ -47,13 +47,12 @@ def main():
         page.goto(url)
 
         if use_auto_login:
-            email = os.environ.get("NAUKRI_EMAIL") or os.environ.get("NAUKARI_EMAIL")
-            password = os.environ.get("NAUKRI_PASSWORD") or os.environ.get("NAUKARI_PASSWORD")
+            email = os.environ.get("EMAIL")
+            password = os.environ.get("PASSWORD")
             if not email or not password:
                 raise RuntimeError(
-                    "Auto-login requested but NAUKRI_EMAIL / NAUKRI_PASSWORD "
-                    "(or NAUKARI_EMAIL / NAUKARI_PASSWORD) environment variables "
-                    "are not set. Aborting."
+                    "Auto-login failed: EMAIL or PASSWORD environment variables not set. "
+                    "Check that secrets NAUKRI_EMAIL and NAUKRI_PASSWORD are defined in the GitHub workflow."
                 )
 
             # ---- Auto-fill login form ----
