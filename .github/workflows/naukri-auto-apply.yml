@@ -27,19 +27,10 @@ jobs:
         python -m playwright install-deps chromium
         python -m playwright install chromium
 
-    - name: Login to Naukri
-      env:
-        EMAIL: ${{ secrets.NAUKRI_EMAIL }}
-        PASSWORD: ${{ secrets.NAUKRI_PASSWORD }}
+    - name: Create session file
       run: |
-        echo "Email length: ${#EMAIL}"
-        echo "Password length: ${#PASSWORD}"
-        if [ ${#EMAIL} -lt 5 ] || [ ${#PASSWORD} -lt 5 ]; then
-          echo "ERROR: Email or password secret is missing/empty"
-          echo "Please add secrets: NAUKRI_EMAIL and NAUKRI_PASSWORD in repo Settings > Secrets"
-          exit 1
-        fi
-        python login_capture.py naukri --auto-login
+        echo "Using committed session_naukri.json"
+        ls -la session_naukri.json
 
     - name: Run Auto Apply
       run: |
