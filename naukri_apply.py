@@ -763,7 +763,7 @@ def run():
                         else:
                             shot_path = _save_debug_screenshot(page, card.get("title"))
                             log_row([datetime.now(), "naukri", card.get("title"), card.get("company"), "uncertain",
-                                     f\"couldn't confirm submission — screenshot saved to {shot_path}\"])
+                                     f"couldn't confirm submission — screenshot saved to {shot_path}"])
                             print(f"UNCERTAIN: {card.get('title')} @ {card.get('company')} — couldn't confirm apply.")
 
                     except SkipJob as e:
