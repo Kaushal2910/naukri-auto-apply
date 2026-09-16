@@ -191,3 +191,5 @@ predefined_answers:
   ever been terminated: 'No'
   legal clearance issues: 'No'
   background issues: 'No'
+  current ctc: '3.2'
+  current ctc in lacs per annum: '3.2'
