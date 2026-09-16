@@ -67,12 +67,23 @@ class Profile:
     def get_predefined_answer(self, question: str) -> str | None:
         """Exact-match lookup for predefined answers."""
         predefined = self.data.get("predefined_answers", {})
+        if not predefined:
+            return None
+            
         # Try exact question match
         if question in predefined:
             return predefined[question]
-        # Try case-insensitive match
-        lower_q = question.strip()
+            
+        # Try case-insensitive exact match
+        lower_q = question.strip().lower()
         for key, value in predefined.items():
-            if key.lower() == lower_q.lower():
+            if key.lower() == lower_q:
                 return value
+                
+        # Try partial matches (key is substring of question or vice versa)
+        for key, value in predefined.items():
+            kl = key.lower().strip()
+            if kl in lower_q or lower_q in kl:
+                return value
+                
         return None
