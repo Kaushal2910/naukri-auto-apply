@@ -72,14 +72,34 @@ def passes_filters(card: dict, profile: Profile, role: str) -> tuple[bool, str]:
     title = (card.get("title") or "").lower()
     company = (card.get("company") or "").lower()
 
+    # Build a broad list of keywords for this role.
+    # Start with explicit keywords from profile.yaml role_required_keywords
     required_keywords = profile.data.get("role_required_keywords", {}).get(role)
-    if not required_keywords and role not in profile.data.get("role_required_keywords", {}):
+    if not required_keywords:
         generic = {"engineer", "developer", "administrator", "analyst", "senior", "junior", "lead"}
         required_keywords = [w for w in role.lower().split() if w not in generic]
         if not required_keywords:
             required_keywords = role.lower().split()
 
-    if required_keywords and not any(kw.lower() in title for kw in required_keywords):
+    # Broad-match helpers: include the role name itself and key technical words
+    role_name = role.lower().replace(" ", "")
+    tech_terms = {
+        "data engineer": ["data", "etl", "big data", "hadoop", "spark", "snowflake", "databricks", "redshift"],
+        "backend developer": ["backend", "backend", "api", "microservice", "server", "node", "spring", "django", "flask", "dotnet", ".net", "java", "python", "fullstack", "full stack"],
+        "devops engineer": ["devops", "site reliability", "sre", "ci/cd", "pipeline", "deployment", "kubernet", "docker", "ansible", "terraform", "jenkins"],
+        "cloud developer": ["cloud", "aws", "azure", "gcp", "lambda", "cloudformation"],
+        "aws developer": ["aws", "lambda", "cloudformation", "ec2"],
+        "python developer": ["python", "django", "flask", "fastapi"],
+        "java developer": ["java", "spring", "backend"],
+        "full stack developer": ["fullstack", "full stack", "frontend", "backend", "react", "angular", "vue"],
+    }
+    broad_terms = tech_terms.get(role.lower(), [])
+    broad_keywords = list(required_keywords) + broad_terms
+    # Also accept the role name itself as a match (e.g. "Backend Developer" title)
+    if role.lower() in title:
+        return True, ""
+
+    if broad_keywords and not any(kw.lower() in title for kw in broad_keywords):
         return False, f"title doesn't match role keywords ({role})"
 
     for excl in profile.company_exclude:
@@ -799,4 +819,12 @@ def run():
 
 
 if __name__ == "__main__":
-    run()
+    try:
+        run()
+    except KeyboardInterrupt:
+        print("\nInterrupted by user. Exiting cleanly.")
+    except SystemExit:
+        raise
+    except Exception as e:
+        print(f"\nUnexpected error: {e}")
+        # Keep session valid for next run
