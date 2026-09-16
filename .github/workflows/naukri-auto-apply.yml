@@ -1,17 +1,15 @@
-name: Naukri Auto Apply
+name: Naukri Auto Apply (Self-Hosted)
 
 on:
   schedule:
     - cron: '*/150 * * * *'
+  
   workflow_dispatch:
-
-env:
-  PLAYWRIGHT_BROWSERS_PATH: /tmp/playwright
 
 jobs:
   apply:
-    runs-on: ubuntu-latest
-    
+    runs-on: [self-hosted]
+
     steps:
     - uses: actions/checkout@v4
     
@@ -27,15 +25,14 @@ jobs:
         python -m playwright install-deps chromium
         python -m playwright install chromium
 
-    - name: Create session file
+    - name: Login to Naukri (auto)
+      env:
+        NAUKRI_EMAIL: ${{ secrets.NAUKRI_EMAIL }}
+        NAUKRI_PASSWORD: ${{ secrets.NAUKRI_PASSWORD }}
       run: |
-        echo "Using committed session_naukri.json"
-        ls -la session_naukri.json
+        python login_capture.py naukri --auto-login
 
     - name: Run Auto Apply
-      env:
-        GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
-        GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
       run: |
         python naukri_apply.py
 
@@ -47,4 +44,4 @@ jobs:
         path: |
           applications_log.csv
           debug_screenshots/
-          login_page_debug.png
+

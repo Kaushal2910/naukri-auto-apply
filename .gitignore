@@ -1,6 +1,6 @@
 # Secrets & Sessions
 .env
-# session_naukri.json - temporarily allowed for automation
+session_naukri.json
 session_linkedin.json
 
 # Local Logs (can grow huge)
