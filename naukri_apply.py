@@ -598,6 +598,7 @@ def answer_screening_chat(page, profile: Profile, job_context: str, timeout_s: i
             _fill_and_send(page, stored, question)
             continue
 
+        # Check predefined answers BEFORE trigger phrases (predefined wins)
         predefined = profile.get_predefined_answer(question)
         if predefined:
             _fill_and_send(page, predefined, question)
