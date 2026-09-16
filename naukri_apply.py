@@ -24,6 +24,9 @@ STOP_PHRASES = [
     "too many requests", "unusual activity", "verify you are human",
     "captcha", "temporarily blocked", "please try again later and reduce",
     "there was an error while processing your request",
+    # Akamai edge block page (Naukri serves this to headless/bot traffic):
+    # "Access Denied / You don't have permission to access ... on this server."
+    "access denied", "you don't have permission to access",
 ]
 
 CARD_SELECTORS = [
